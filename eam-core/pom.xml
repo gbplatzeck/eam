@@ -1,0 +1,158 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<parent>
+		<groupId>eam</groupId>
+		<artifactId>eam-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>eam-core</artifactId>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+		<spring-boot.version>1.2.6.RELEASE</spring-boot.version>
+		<spring.version>4.2.1.RELEASE</spring.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>eam</groupId>
+			<artifactId>eam-model</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- Spring Boot Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+			<exclusions>
+				<exclusion>
+					<artifactId>hibernate-validator</artifactId>
+					<groupId>org.hibernate</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>spring-boot-starter-tomcat</artifactId>
+					<groupId>org.springframework.boot</groupId>
+				</exclusion>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+			<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jetty</artifactId>
+			<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j</artifactId>
+			<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>apache-log4j-extras</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
+
+
+		<!-- JDBC Dependencies -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+			<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+
+		<!-- Postgres -->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4-1201-jdbc41</version>
+		</dependency>
+		<!-- Others -->
+
+		<!-- <dependency> <groupId>org.apache.httpcomponents</groupId> <artifactId>httpclient</artifactId> 
+			<version>4.3.6</version> </dependency> -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>1.9.13</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+
+		<!-- <dependency> <groupId>org.apache.commons</groupId> <artifactId>commons-io</artifactId> 
+			<version>1.3.2</version> </dependency> -->
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+			<version>2.6.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>info.cukes</groupId>
+			<artifactId>cucumber-java8</artifactId>
+			<version>1.2.3</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version><!--$NO-MVN-MAN-VER$ -->
+			</plugin>
+
+			<plugin>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.0.9</version>
+				<configuration>
+					<mainClass>br.com.eam.main.EAMApplication</mainClass>
+					<layout>ZIP</layout>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
