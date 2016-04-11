@@ -11,6 +11,7 @@ import br.com.eam.model.user.knowledge.skill.Climbing;
 import br.com.eam.model.user.knowledge.skill.Flying;
 import br.com.eam.model.user.knowledge.skill.Hiding;
 import br.com.eam.model.user.knowledge.skill.Jumping;
+import br.com.eam.model.user.knowledge.skill.Listening;
 import br.com.eam.model.user.knowledge.skill.Riding;
 import br.com.eam.model.user.knowledge.skill.Running;
 import br.com.eam.model.user.knowledge.skill.Searching;
@@ -28,6 +29,7 @@ public class SkillSet implements Serializable{
 	private Flying flying;
 	private Hiding hiding;
 	private Jumping jumping;
+	private Listening listening;
 	private Riding riding;
 	private Running running;
 	private Searching searching;
@@ -52,6 +54,12 @@ public class SkillSet implements Serializable{
 	}
 	public void setJumping(Jumping jumping) {
 		this.jumping = jumping;
+	}
+	public Listening getListening() {
+		return listening;
+	}
+	public void setListening(Listening listening) {
+		this.listening = listening;
 	}
 	public Running getRunning() {
 		return running;
