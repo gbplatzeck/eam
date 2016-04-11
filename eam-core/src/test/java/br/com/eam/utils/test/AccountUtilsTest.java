@@ -46,13 +46,9 @@ public class AccountUtilsTest {
 	}
 
 	@Test
-	public void testGenerateRecoveryToken() {
+	public void testGenerateRecoveryToken() throws InterruptedException {
 		String token = AccountUtils.generateRecoveryToken(expectedHash);
-		try{
-			Thread.sleep(1500l);
-		}catch(InterruptedException e){
-			throw new RuntimeException(e);
-		}
+		Thread.sleep(1500l);
 		String anotherToken = AccountUtils.generateRecoveryToken(expectedHash);
 		Assert.assertNotEquals(token, anotherToken);
 		Assert.assertEquals(token.length(), 152);
