@@ -32,6 +32,7 @@ public class Person extends Base {
 	private List<Person> parents;
 	private List<Person> children;
 	private List<Person> partners;
+	private List<Person> formerPartners;
 	
 	private Boggart boggart;
 	private Wand wand;
@@ -141,6 +142,14 @@ public class Person extends Base {
 		this.partners = partners;
 	}
 	
+	public List<Person> getFormerPartners() {
+		return formerPartners;
+	}
+
+	public void setFormerPartners(List<Person> formerPartners) {
+		this.formerPartners = formerPartners;
+	}
+
 	public List<Person> getChildren() {
 		return children;
 	}
