@@ -12,6 +12,7 @@ public interface PersonQuery {
 	List<Person> getPartners(String personId);
 	List<Person> getFormerPartners(String personId);
 	Boolean checkPartnership(String personId, String partnerId);
+	Person getByUsername(String username);
 	String generateId();
 	
 }
