@@ -30,13 +30,10 @@ public class AccountService {
 	}
 	
 	public Boolean changeEmail(User user){
-		user.setActive(null);
-		user.setLogin(null);
-		user.setPassword(null);
-		user.setPerson(null);
-		user.setRole(null);
-		user.setUserBirthday(null);
-		return userCommand.update(user);
+		User update = new User();
+		update.setId(user.getId());
+		update.setEmail(user.getEmail());
+		return userCommand.update(update);
 	}
 	
 	public Boolean changePassword(User user, String newPassword) throws InvalidParameterException{
