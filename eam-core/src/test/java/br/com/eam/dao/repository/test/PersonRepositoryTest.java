@@ -19,7 +19,7 @@ import br.com.eam.dao.command.PersonCommand;
 import br.com.eam.dao.query.PersonQuery;
 import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
-import br.com.eam.service.PersonProfileService;
+import br.com.eam.service.CharacterProfileService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
@@ -34,7 +34,7 @@ public class PersonRepositoryTest {
 	PersonQuery personQuery;
 	
 	@Autowired
-	PersonProfileService personProfileService;
+	CharacterProfileService characterProfileService;
 	
 	Person person;
 	Person update;
@@ -46,10 +46,10 @@ public class PersonRepositoryTest {
 		calendar.setTime(new Date());
 		calendar.add(Calendar.YEAR, -21);
 		
-		List<String> bloodStatuses = personProfileService.getBloodStatuses();
-		List<String> maritalStatuses = personProfileService.getMaritalStatuses();
-		List<String> species = personProfileService.getSpecies();
-		List<String> genders = personProfileService.getGenders();
+		List<String> bloodStatuses = characterProfileService.getBloodStatuses();
+		List<String> maritalStatuses = characterProfileService.getMaritalStatuses();
+		List<String> species = characterProfileService.getSpecies();
+		List<String> genders = characterProfileService.getGenders();
 		
 		person = new Person();
 		

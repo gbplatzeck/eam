@@ -11,7 +11,7 @@ import br.com.eam.dao.query.MaritalStatusQuery;
 import br.com.eam.dao.query.SpeciesQuery;
 
 @Service
-public class PersonProfileService {
+public class CharacterProfileService {
 	
 	@Autowired
 	BloodStatusQuery bloodStatusQuery;

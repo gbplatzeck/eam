@@ -20,7 +20,7 @@ import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
 import br.com.eam.model.user.Role;
 import br.com.eam.model.user.User;
-import br.com.eam.service.PersonProfileService;
+import br.com.eam.service.CharacterProfileService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EAMApplication.class)
@@ -35,7 +35,7 @@ public class UserRepositoryTest {
 	UserCommand userCommand;
 
 	@Autowired
-	PersonProfileService personProfileService;
+	CharacterProfileService characterProfileService;
 
 	@Autowired
 	PersonCommand personCommand;
@@ -53,11 +53,11 @@ public class UserRepositoryTest {
 		password = "password" + new Date();
 		id = userQuery.generateId();
 
-		List<String> bloodStatuses = personProfileService.getBloodStatuses();
-		List<String> maritalStatuses = personProfileService
+		List<String> bloodStatuses = characterProfileService.getBloodStatuses();
+		List<String> maritalStatuses = characterProfileService
 				.getMaritalStatuses();
-		List<String> species = personProfileService.getSpecies();
-		List<String> genders = personProfileService.getGenders();
+		List<String> species = characterProfileService.getSpecies();
+		List<String> genders = characterProfileService.getGenders();
 
 		Person person = new Person();
 
