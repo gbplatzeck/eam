@@ -13,7 +13,7 @@ import br.com.eam.model.user.Person;
 @Repository
 public class PersonQueryImpl extends JdbcQuery implements PersonQuery{
 
-	private final static String SELECT_PERSON_BY_ID = ""
+	private final static String SELECT_PERSON = ""
 			+ "	SELECT p.per_id per_id"
 			+ "		, p.active per_active"			
 			+ "		, p.creation_date per_creation_date"
@@ -33,8 +33,15 @@ public class PersonQueryImpl extends JdbcQuery implements PersonQuery{
 			+ "		, h.name hou_name"
 			+ "	FROM d_person p "
 			+ "	LEFT JOIN k_house h "
-			+ "		ON h.hou_id = p.hou_id "
+			+ "		ON h.hou_id = p.hou_id ";
+	
+	private final static String SELECT_PERSON_BY_ID =
+			SELECT_PERSON
 			+ "	WHERE p.per_id = :personId::uuid";
+	
+	private final static String SELECT_PERSON_BY_USERNAME =
+			SELECT_PERSON
+			+ " WHERE p.username = :username";
 	
 	private final static String SELECT_PARENTS = ""
 			+ "	SELECT p.per_id per_id"
@@ -166,6 +173,13 @@ public class PersonQueryImpl extends JdbcQuery implements PersonQuery{
 		paramMap.put("partnerId", partnerId);
 		SqlRowSet rs = template().queryForRowSet(CHECK_PARTNERSHIP, paramMap);
 		return rs.next();
+	}
+
+	@Override
+	public Person getByUsername(String username) {
+		Map<String, Object> paramMap = params();
+		paramMap.put("unsername", username);
+		return template().queryForObject(SELECT_PERSON_BY_USERNAME, paramMap, new PersonRowMapper());
 	}
 
 }
