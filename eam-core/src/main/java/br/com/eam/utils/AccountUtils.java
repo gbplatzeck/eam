@@ -15,14 +15,22 @@ import br.com.eam.model.user.User;
 public class AccountUtils {
 	
 	private static final String PASSWORD_BASE = "DONTCHANGETHIS";
-	private static final String TOKEN_BASE = "THISSHOULDNOTBECHANGED";
-	private static final String TOKEN_KEY = "THISKINDACOULDBECHANGEDBUTDONT";
+	private static final String TOKEN_BASE = "TH155H0ULDN0TB3CH4NG3D";
+	private static final String TOKEN_KEY = "TH1SK1ND4C0ULDB3CH4NG3DBUTD0NT";
 	
+	/**
+	 * Masks email and empties password
+	 * @param user
+	 */
 	public static void removeSensitiveInfo(User user){
 		user.setPassword(StringUtils.EMPTY);
 		user.setEmail(maskEmail(user.getEmail()));
 	}
 	
+	/**
+	 * @param email
+	 * @return obfuscated email (using *) with full domain
+	 */
 	public static String maskEmail(String email){
 		int indexAt = StringUtils.indexOf(email,"@");
 		String domain = StringUtils.substring(email, indexAt);
@@ -61,11 +69,6 @@ public class AccountUtils {
 		return EncryptUtils.encrypt(salted, tokenKey());
 	}
 	
-	private static String decryptToken(String recoveryToken){
-		String salted = EncryptUtils.decrypt(recoveryToken, tokenKey());
-		return StringUtils.removeStart(salted, tokenBase());
-	}
-	
 	public static String getPassword(String recoveryToken){
 		String decryptedToken = decryptToken(recoveryToken);
 		int indexOfSeparator = StringUtils.indexOf(decryptedToken, "+");
@@ -77,6 +80,11 @@ public class AccountUtils {
 		int indexOfSeparator = StringUtils.indexOf(decryptedToken, "+");
 		long timeInMillis = Long.valueOf(StringUtils.substring(decryptedToken, 0, indexOfSeparator));
 		return new Date(timeInMillis);
+	}
+	
+	private static String decryptToken(String recoveryToken){
+		String salted = EncryptUtils.decrypt(recoveryToken, tokenKey());
+		return StringUtils.removeStart(salted, tokenBase());
 	}
 	
 	private static String tokenBase(){
