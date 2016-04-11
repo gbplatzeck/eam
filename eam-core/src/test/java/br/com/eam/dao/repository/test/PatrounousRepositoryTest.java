@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.dao.repository.test;
 
 import java.util.Date;
 import java.util.List;
@@ -13,25 +13,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.com.eam.dao.command.PatrounousCommand;
 import br.com.eam.dao.command.PersonCommand;
-import br.com.eam.dao.command.WandCommand;
+import br.com.eam.dao.query.PatrounousQuery;
 import br.com.eam.dao.query.PersonQuery;
-import br.com.eam.dao.query.WandQuery;
 import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
-import br.com.eam.model.user.misc.Wand;
+import br.com.eam.model.user.misc.Patrounous;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
 @WebAppConfiguration
 @Transactional
-public class WandRepositoryTest {
+public class PatrounousRepositoryTest {
 	
 	@Autowired
-	WandCommand wandCommand;
+	PatrounousCommand patrounousCommand;
 	
 	@Autowired
-	WandQuery wandQuery;
+	PatrounousQuery patrounousQuery;
 	
 	@Autowired
 	PersonCommand personCommand;
@@ -63,84 +63,80 @@ public class WandRepositoryTest {
 	
 	@Test
 	public void testPick(){
-		Wand choice = wandQuery.pick();
+		Patrounous choice = patrounousQuery.pick();
 		Assert.assertNotNull(choice);
 		Assert.assertNotNull(choice.getId());
-		Assert.assertNotNull(choice.getKernel());
-		Assert.assertNotNull(choice.getSize());
-		Assert.assertNotNull(choice.getWood());
+		Assert.assertNotNull(choice.getName());
 		Assert.assertNotNull(choice.getCreationDate());
 		Assert.assertTrue(choice.getActive());
 	}
 	
 	@Test
 	public void testInsert(){
-		Wand choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		Wand current = wandQuery.get(person.getId());
+		Patrounous choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		Patrounous current = patrounousQuery.get(person.getId());
 		Assert.assertNotNull(current);
 		Assert.assertEquals(current.getId(), choice.getId());
-		Assert.assertEquals(current.getKernel(), choice.getKernel());
-		Assert.assertEquals(current.getWood(), choice.getWood());
-		Assert.assertEquals(current.getSize(), choice.getSize());
+		Assert.assertEquals(current.getName(), choice.getName());
+		Assert.assertEquals(current.getDescription(), choice.getDescription());
 		Assert.assertTrue(current.getActive());
 	}
 	
 	@Test
 	public void testFormerInitial(){
-		Wand choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		List<Wand> former = wandQuery.getFormer(person.getId());
+		Patrounous choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);
 	}
 	
 	@Test
 	public void testEmptyFormer(){
-		List<Wand> former = wandQuery.getFormer(person.getId());
+		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);		
 	}
 	
 	@Test
 	public void testInitial(){
-		Wand current = wandQuery.get(person.getId());
+		Patrounous current = patrounousQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivate(){
-		Wand choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		Boolean inactivated = wandCommand.inactivate(person.getId());
+		Patrounous choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		Boolean inactivated = patrounousCommand.inactivate(person.getId());
 		Assert.assertTrue(inactivated);
 	}
 	
 	@Test
 	public void testCurrentAfterInactivation(){
-		Wand choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		wandCommand.inactivate(person.getId());
-		Wand current = wandQuery.get(person.getId());
+		Patrounous choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		patrounousCommand.inactivate(person.getId());
+		Patrounous current = patrounousQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivateWithoutCurrent(){
-		Boolean inactivated = wandCommand.inactivate(person.getId());
+		Boolean inactivated = patrounousCommand.inactivate(person.getId());
 		Assert.assertFalse(inactivated);
 	}
 	
 	@Test
 	public void testFormer(){
-		Wand choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		wandCommand.inactivate(person.getId());
-		List<Wand> former = wandQuery.getFormer(person.getId());
+		Patrounous choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		patrounousCommand.inactivate(person.getId());
+		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 1);
-		choice = wandQuery.pick();
-		wandCommand.insert(person.getId(), choice);
-		wandCommand.inactivate(person.getId());
-		former = wandQuery.getFormer(person.getId());
+		choice = patrounousQuery.pick();
+		patrounousCommand.insert(person.getId(), choice);
+		patrounousCommand.inactivate(person.getId());
+		former = patrounousQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 2);
 	}
 }
-

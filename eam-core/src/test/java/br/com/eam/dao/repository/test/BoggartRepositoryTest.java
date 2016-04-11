@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.dao.repository.test;
 
 import java.util.Date;
 import java.util.List;
@@ -13,25 +13,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.eam.dao.command.PatrounousCommand;
+import br.com.eam.dao.command.BoggartCommand;
 import br.com.eam.dao.command.PersonCommand;
-import br.com.eam.dao.query.PatrounousQuery;
+import br.com.eam.dao.query.BoggartQuery;
 import br.com.eam.dao.query.PersonQuery;
 import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
-import br.com.eam.model.user.misc.Patrounous;
+import br.com.eam.model.user.misc.Boggart;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
 @WebAppConfiguration
 @Transactional
-public class PatrounousRepositoryTest {
+public class BoggartRepositoryTest {
 	
 	@Autowired
-	PatrounousCommand patrounousCommand;
+	BoggartCommand boggartCommand;
 	
 	@Autowired
-	PatrounousQuery patrounousQuery;
+	BoggartQuery boggartQuery;
 	
 	@Autowired
 	PersonCommand personCommand;
@@ -63,7 +63,7 @@ public class PatrounousRepositoryTest {
 	
 	@Test
 	public void testPick(){
-		Patrounous choice = patrounousQuery.pick();
+		Boggart choice = boggartQuery.pick();
 		Assert.assertNotNull(choice);
 		Assert.assertNotNull(choice.getId());
 		Assert.assertNotNull(choice.getName());
@@ -73,9 +73,9 @@ public class PatrounousRepositoryTest {
 	
 	@Test
 	public void testInsert(){
-		Patrounous choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		Patrounous current = patrounousQuery.get(person.getId());
+		Boggart choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		Boggart current = boggartQuery.get(person.getId());
 		Assert.assertNotNull(current);
 		Assert.assertEquals(current.getId(), choice.getId());
 		Assert.assertEquals(current.getName(), choice.getName());
@@ -85,58 +85,59 @@ public class PatrounousRepositoryTest {
 	
 	@Test
 	public void testFormerInitial(){
-		Patrounous choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
+		Boggart choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		List<Boggart> former = boggartQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);
 	}
 	
 	@Test
 	public void testEmptyFormer(){
-		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
+		List<Boggart> former = boggartQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);		
 	}
 	
 	@Test
 	public void testInitial(){
-		Patrounous current = patrounousQuery.get(person.getId());
+		Boggart current = boggartQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivate(){
-		Patrounous choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		Boolean inactivated = patrounousCommand.inactivate(person.getId());
+		Boggart choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		Boolean inactivated = boggartCommand.inactivate(person.getId());
 		Assert.assertTrue(inactivated);
 	}
 	
 	@Test
 	public void testCurrentAfterInactivation(){
-		Patrounous choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		patrounousCommand.inactivate(person.getId());
-		Patrounous current = patrounousQuery.get(person.getId());
+		Boggart choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		boggartCommand.inactivate(person.getId());
+		Boggart current = boggartQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivateWithoutCurrent(){
-		Boolean inactivated = patrounousCommand.inactivate(person.getId());
+		Boolean inactivated = boggartCommand.inactivate(person.getId());
 		Assert.assertFalse(inactivated);
 	}
 	
 	@Test
 	public void testFormer(){
-		Patrounous choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		patrounousCommand.inactivate(person.getId());
-		List<Patrounous> former = patrounousQuery.getFormer(person.getId());
+		Boggart choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		boggartCommand.inactivate(person.getId());
+		List<Boggart> former = boggartQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 1);
-		choice = patrounousQuery.pick();
-		patrounousCommand.insert(person.getId(), choice);
-		patrounousCommand.inactivate(person.getId());
-		former = patrounousQuery.getFormer(person.getId());
+		choice = boggartQuery.pick();
+		boggartCommand.insert(person.getId(), choice);
+		boggartCommand.inactivate(person.getId());
+		former = boggartQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 2);
 	}
 }
+

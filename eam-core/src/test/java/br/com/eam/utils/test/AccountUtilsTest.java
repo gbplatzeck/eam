@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.utils.test;
 
 import java.util.Date;
 

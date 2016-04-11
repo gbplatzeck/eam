@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.dao.repository.test;
 
 import java.util.Calendar;
 import java.util.Date;

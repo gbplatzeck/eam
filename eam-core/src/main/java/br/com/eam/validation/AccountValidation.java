@@ -1,4 +1,4 @@
-package br.com.eam.service.validation;
+package br.com.eam.validation;
 
 import java.util.Date;
 

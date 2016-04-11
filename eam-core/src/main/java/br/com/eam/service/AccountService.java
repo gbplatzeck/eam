@@ -1,4 +1,4 @@
-package br.com.eam.dao.query.jdbc;
+package br.com.eam.service;
 
 import org.apache.commons.lang3.NotImplementedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import br.com.eam.dao.query.UserQuery;
 import br.com.eam.exception.InvalidParameterException;
 import br.com.eam.exception.InvalidTokenException;
 import br.com.eam.model.user.User;
-import br.com.eam.service.validation.AccountValidation;
 import br.com.eam.utils.AccountUtils;
+import br.com.eam.validation.AccountValidation;
 
 @Service
 public class AccountService {

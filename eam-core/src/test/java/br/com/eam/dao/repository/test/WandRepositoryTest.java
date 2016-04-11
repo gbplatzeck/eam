@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.dao.repository.test;
 
 import java.util.Date;
 import java.util.List;
@@ -13,25 +13,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.eam.dao.command.BoggartCommand;
 import br.com.eam.dao.command.PersonCommand;
-import br.com.eam.dao.query.BoggartQuery;
+import br.com.eam.dao.command.WandCommand;
 import br.com.eam.dao.query.PersonQuery;
+import br.com.eam.dao.query.WandQuery;
 import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
-import br.com.eam.model.user.misc.Boggart;
+import br.com.eam.model.user.misc.Wand;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
 @WebAppConfiguration
 @Transactional
-public class BoggartRepositoryTest {
+public class WandRepositoryTest {
 	
 	@Autowired
-	BoggartCommand boggartCommand;
+	WandCommand wandCommand;
 	
 	@Autowired
-	BoggartQuery boggartQuery;
+	WandQuery wandQuery;
 	
 	@Autowired
 	PersonCommand personCommand;
@@ -63,80 +63,83 @@ public class BoggartRepositoryTest {
 	
 	@Test
 	public void testPick(){
-		Boggart choice = boggartQuery.pick();
+		Wand choice = wandQuery.pick();
 		Assert.assertNotNull(choice);
 		Assert.assertNotNull(choice.getId());
-		Assert.assertNotNull(choice.getName());
+		Assert.assertNotNull(choice.getKernel());
+		Assert.assertNotNull(choice.getSize());
+		Assert.assertNotNull(choice.getWood());
 		Assert.assertNotNull(choice.getCreationDate());
 		Assert.assertTrue(choice.getActive());
 	}
 	
 	@Test
 	public void testInsert(){
-		Boggart choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		Boggart current = boggartQuery.get(person.getId());
+		Wand choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		Wand current = wandQuery.get(person.getId());
 		Assert.assertNotNull(current);
 		Assert.assertEquals(current.getId(), choice.getId());
-		Assert.assertEquals(current.getName(), choice.getName());
-		Assert.assertEquals(current.getDescription(), choice.getDescription());
+		Assert.assertEquals(current.getKernel(), choice.getKernel());
+		Assert.assertEquals(current.getWood(), choice.getWood());
+		Assert.assertEquals(current.getSize(), choice.getSize());
 		Assert.assertTrue(current.getActive());
 	}
 	
 	@Test
 	public void testFormerInitial(){
-		Boggart choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		List<Boggart> former = boggartQuery.getFormer(person.getId());
+		Wand choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		List<Wand> former = wandQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);
 	}
 	
 	@Test
 	public void testEmptyFormer(){
-		List<Boggart> former = boggartQuery.getFormer(person.getId());
+		List<Wand> former = wandQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 0);		
 	}
 	
 	@Test
 	public void testInitial(){
-		Boggart current = boggartQuery.get(person.getId());
+		Wand current = wandQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivate(){
-		Boggart choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		Boolean inactivated = boggartCommand.inactivate(person.getId());
+		Wand choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		Boolean inactivated = wandCommand.inactivate(person.getId());
 		Assert.assertTrue(inactivated);
 	}
 	
 	@Test
 	public void testCurrentAfterInactivation(){
-		Boggart choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		boggartCommand.inactivate(person.getId());
-		Boggart current = boggartQuery.get(person.getId());
+		Wand choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		wandCommand.inactivate(person.getId());
+		Wand current = wandQuery.get(person.getId());
 		Assert.assertNull(current);
 	}
 	
 	@Test
 	public void testInactivateWithoutCurrent(){
-		Boolean inactivated = boggartCommand.inactivate(person.getId());
+		Boolean inactivated = wandCommand.inactivate(person.getId());
 		Assert.assertFalse(inactivated);
 	}
 	
 	@Test
 	public void testFormer(){
-		Boggart choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		boggartCommand.inactivate(person.getId());
-		List<Boggart> former = boggartQuery.getFormer(person.getId());
+		Wand choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		wandCommand.inactivate(person.getId());
+		List<Wand> former = wandQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 1);
-		choice = boggartQuery.pick();
-		boggartCommand.insert(person.getId(), choice);
-		boggartCommand.inactivate(person.getId());
-		former = boggartQuery.getFormer(person.getId());
+		choice = wandQuery.pick();
+		wandCommand.insert(person.getId(), choice);
+		wandCommand.inactivate(person.getId());
+		former = wandQuery.getFormer(person.getId());
 		Assert.assertEquals(former.size(), 2);
 	}
 }

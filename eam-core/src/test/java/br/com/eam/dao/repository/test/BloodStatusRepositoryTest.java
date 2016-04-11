@@ -1,4 +1,4 @@
-package br.com.eam.dao.repository.jdbc.test;
+package br.com.eam.dao.repository.test;
 
 import java.util.List;
 
@@ -11,22 +11,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.com.eam.dao.query.GenderQuery;
+import br.com.eam.dao.query.BloodStatusQuery;
 import br.com.eam.main.EAMApplication;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
 @WebAppConfiguration
 @Transactional
-public class GenderRepositoryTest {
+public class BloodStatusRepositoryTest {
 
 	@Autowired
-	GenderQuery genderQuery;
+	BloodStatusQuery bloodStatusQuery;
 	
 	@Test
-	public void testGetGenders() {
-		List<String> genders = genderQuery.getGenders();
-		Assert.assertNotNull(genders);
+	public void testGetBloodStatuses() {
+		List<String> bloodStatuses = bloodStatusQuery.getBloodStatuses();
+		Assert.assertNotNull(bloodStatuses);
 	}
 
 }
