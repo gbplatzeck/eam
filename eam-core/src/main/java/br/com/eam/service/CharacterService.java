@@ -42,16 +42,12 @@ public class CharacterService {
 		return person;
 	}
 	
-	public Person get(String username){
+	public Person getByUsername(String username){
 		return personQuery.getByUsername(username);
 	}
 	
-	public Person getWithFamily(String personId){
-		Person person = personQuery.get(personId);
-		person.setChildren(personQuery.getChildren(personId));
-		person.setParents(personQuery.getParents(personId));
-		person.setPartners(personQuery.getPartners(personId));
-		person.setFormerPartners(personQuery.getFormerPartners(personId));
-		return person;
+	public Person get(String personId){
+		return personQuery.get(personId);
 	}
+	
 }
