@@ -1,11 +1,10 @@
 package br.com.eam.dao.query.jdbc;
 
-import java.util.List;
 import java.util.Map;
 
 import br.com.eam.dao.query.SkillQuery;
 import br.com.eam.dao.query.jdbc.rowmapper.SkillRowMapper;
-import br.com.eam.model.user.knowledge.Skill;
+import br.com.eam.model.user.knowledge.SkillSet;
 
 public class SkillQueryImpl extends JdbcQuery implements SkillQuery {
 
@@ -30,16 +29,20 @@ public class SkillQueryImpl extends JdbcQuery implements SkillQuery {
 	
 	
 	@Override
-	public List<Skill> get(String personId) {
+	public SkillSet get(String personId) {
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
-		return template().query(SELECT_SKILLS, paramMap, new SkillRowMapper());
+		SkillSet skillSet = new SkillSet();
+		template().query(SELECT_SKILLS, paramMap, new SkillRowMapper(skillSet));
+		return skillSet;
 	}
 
 
 	@Override
-	public List<Skill> list() {
-		return template().query(SELECT_ALL_SKILLS, params(), new SkillRowMapper());
+	public SkillSet list() {
+		SkillSet skillSet = new SkillSet();
+		template().query(SELECT_ALL_SKILLS, params(), new SkillRowMapper(skillSet));
+		return skillSet;
 	}
 
 }

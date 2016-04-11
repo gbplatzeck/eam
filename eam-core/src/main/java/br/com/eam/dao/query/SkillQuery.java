@@ -1,11 +1,9 @@
 package br.com.eam.dao.query;
 
-import java.util.List;
-
-import br.com.eam.model.user.knowledge.Skill;
+import br.com.eam.model.user.knowledge.SkillSet;
 
 public interface SkillQuery {
 
-	List<Skill> get(String personId);
-	List<Skill> list();
+	SkillSet get(String personId);
+	SkillSet list();
 }

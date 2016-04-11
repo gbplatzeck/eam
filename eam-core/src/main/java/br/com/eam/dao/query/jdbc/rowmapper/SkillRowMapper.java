@@ -8,6 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 import br.com.eam.exception.KnowledgeNotImplementedException;
 import br.com.eam.model.user.knowledge.Skill;
+import br.com.eam.model.user.knowledge.SkillSet;
 import br.com.eam.model.user.knowledge.skill.Acting;
 import br.com.eam.model.user.knowledge.skill.Bluffing;
 import br.com.eam.model.user.knowledge.skill.Climbing;
@@ -23,6 +24,12 @@ import br.com.eam.model.user.knowledge.skill.Swimming;
 import br.com.eam.model.user.knowledge.skill.Tumbling;
 
 public class SkillRowMapper implements RowMapper<Skill> {
+	
+	private SkillSet skillSet;
+	
+	public SkillRowMapper(SkillSet skillSet){
+		this.skillSet = skillSet;
+	}
 
 	@Override
 	public Skill mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -43,48 +50,61 @@ public class SkillRowMapper implements RowMapper<Skill> {
 		return skill;
 	}
 
-	private static Skill getInstance(String name) {
+	private Skill getInstance(String name) {
 		Skill skill = null;
 		
 		switch(name){
 		case Skill.SK_ACTING:
-			skill = new Acting();
+			skillSet.setActing(new Acting());
+			skill = skillSet.getActing();
 			break;
 		case Skill.SK_BLUFFING:
-			skill = new Bluffing();
+			skillSet.setBluffing(new Bluffing());
+			skill = skillSet.getBluffing();
 			break;
 		case Skill.SK_CLIMBING:
-			skill = new Climbing();
+			skillSet.setClimbing(new Climbing());
+			skill = skillSet.getClimbing();
 			break;
 		case Skill.SK_FLYING:
-			skill = new Flying();
+			skillSet.setFlying(new Flying());
+			skill = skillSet.getFlying();
 			break;
 		case Skill.SK_HIDING:
-			skill = new Hiding();
+			skillSet.setHiding(new Hiding());
+			skill = skillSet.getHiding();
 			break;
 		case Skill.SK_JUMPING:
-			skill = new Jumping();
+			skillSet.setJumping(new Jumping());
+			skill = skillSet.getJumping();
 			break;
 		case Skill.SK_LISTENING:
-			skill = new Listening();
+			skillSet.setListening(new Listening());
+			skill = skillSet.getListening();
 			break;
 		case Skill.SK_RIDING:
-			skill = new Riding();
+			skillSet.setRiding(new Riding());
+			skill = skillSet.getRiding();
 			break;
 		case Skill.SK_RUNNING:
-			skill = new Running();
+			skillSet.setRunning(new Running());
+			skill = skillSet.getRunning();
 			break;
 		case Skill.SK_SEARCHING:
-			skill = new Searching();
+			skillSet.setSearching(new Searching());
+			skill = skillSet.getSearching();
 			break;
 		case Skill.SK_SPOTTING:
-			skill = new Spotting();
+			skillSet.setSpotting(new Spotting());
+			skill = skillSet.getSpotting();
 			break;
 		case Skill.SK_SWIMMING:
-			skill = new Swimming();
+			skillSet.setSwimming(new Swimming());
+			skill = skillSet.getSwimming();
 			break;
 		case Skill.SK_TUMBLING:
-			skill = new Tumbling();
+			skillSet.setTumbling(new Tumbling());
+			skill = skillSet.getTumbling();
 			break;
 		default:
 			throw new KnowledgeNotImplementedException(name);
