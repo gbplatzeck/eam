@@ -24,9 +24,6 @@ public class CharacterService {
 	PersonQuery personQuery;
 	
 	@Autowired
-	AccountService accountService;
-	
-	@Autowired
 	UserQuery userQuery;
 	
 	@Transactional
