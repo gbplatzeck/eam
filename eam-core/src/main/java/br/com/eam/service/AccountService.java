@@ -24,6 +24,7 @@ public class AccountService {
 	public User register(User user){
 		String id = userQuery.generateId();
 		user.setId(id);
+		user.setPassword(AccountUtils.sha256(user.getPassword()));
 		userCommand.insert(user);
 		AccountUtils.removeSensitiveInfo(user);
 		return user;
