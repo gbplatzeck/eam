@@ -11,10 +11,4 @@ public class Astronomy extends Field {
 		return FD_ASTRONOMY;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

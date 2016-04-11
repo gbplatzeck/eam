@@ -2,9 +2,12 @@ package br.com.eam.dao.command.jdbc;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import br.com.eam.dao.command.PatrounousCommand;
 import br.com.eam.model.user.misc.Patrounous;
 
+@Repository
 public class PatrounousCommandImpl extends JdbcCommand implements
 		PatrounousCommand {
 
@@ -12,7 +15,7 @@ public class PatrounousCommandImpl extends JdbcCommand implements
 			+ "	INSERT INTO r_person_patrounous "
 			+ "		(per_id, pat_id) "
 			+ "	VALUES"
-			+ "		(:personId, :patrounousId) ";
+			+ "		(:personId::uuid, :patrounousId::uuid) ";
 	
 	private final static String INACTIVATE_PATROUNOUS = ""
 			+ "	UPDATE r_person_patrounous "
@@ -20,15 +23,15 @@ public class PatrounousCommandImpl extends JdbcCommand implements
 			+ "		active = false,"
 			+ "		updated_date = now()"
 			+ "	WHERE"
-			+ "		per_id = :personId"
+			+ "		per_id = :personId::uuid"
 			+ "		AND active = true";
 	
 	@Override
-	public Boolean insert(String personId, Patrounous patrounous) {
+	public void insert(String personId, Patrounous patrounous) {
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
 		paramMap.put("patrounousId", patrounous.getId());
-		return template().update(RELATE_PATROUNOUS, paramMap) == 1;
+		template().update(RELATE_PATROUNOUS, paramMap);
 	}
 
 	@Override

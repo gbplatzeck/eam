@@ -22,7 +22,7 @@ public class BoggartQueryImpl extends JdbcQuery implements BoggartQuery {
 			+ "	FROM k_boggart b"
 			+ "	INNER JOIN r_person_boggart r"
 			+ "		ON r.bog_id = b.bog_id"
-			+ "	WHERE r.per_id = :personId "
+			+ "	WHERE r.per_id = :personId::uuid "
 			+ "		AND r.active = :active "
 			+ "	ORDER BY r.creation_date DESC";
 
@@ -31,8 +31,8 @@ public class BoggartQueryImpl extends JdbcQuery implements BoggartQuery {
 			+ "		, b.name bog_name "
 			+ "		, b.description bog_description "
 			+ "		, true bog_active"
-			+ "		, sysdate bog_creation_date "
-			+ "		, sysdate bog_updated_date "
+			+ "		, now() bog_creation_date "
+			+ "		, now() bog_updated_date "
 			+ "	FROM k_boggart b"
 			+ "	OFFSET floor(random() * ("
 			+ "		SELECT count(*) "
@@ -45,16 +45,21 @@ public class BoggartQueryImpl extends JdbcQuery implements BoggartQuery {
 	}
 
 	@Override
-	public Boggart getByPersonId(String personId) {
+	public Boggart get(String personId) {
 		String sql = SELECT_BOGGART_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
 		paramMap.put("active", true);
-		return template().queryForObject(sql, paramMap, new BoggartRowMapper());
+		Boggart boggart = null;
+		List<Boggart> list = template().query(sql, paramMap, new BoggartRowMapper());
+		if(!list.isEmpty()){
+			boggart = list.get(0);
+		}
+		return boggart;
 	}
 
 	@Override
-	public List<Boggart> getFormerByPersonId(String personId) {
+	public List<Boggart> getFormer(String personId) {
 		String sql = SELECT_BOGGART_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);

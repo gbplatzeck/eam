@@ -11,10 +11,4 @@ public class Divination extends Field {
 		return FD_DIVINATION;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

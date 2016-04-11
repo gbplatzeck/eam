@@ -11,10 +11,4 @@ public class StudiesOfAncientRunes extends Field{
 		return FD_SAR;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

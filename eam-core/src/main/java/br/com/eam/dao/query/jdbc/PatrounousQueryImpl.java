@@ -22,7 +22,7 @@ public class PatrounousQueryImpl extends JdbcQuery implements PatrounousQuery {
 			+ "	FROM k_patrounous p"
 			+ "	INNER JOIN r_person_patrounous r"
 			+ "		ON r.pat_id = p.pat_id"
-			+ "	WHERE r.per_id = :personId "
+			+ "	WHERE r.per_id = :personId::uuid "
 			+ "		AND r.active = :active "
 			+ "	ORDER BY r.creation_date DESC";
 	
@@ -31,9 +31,9 @@ public class PatrounousQueryImpl extends JdbcQuery implements PatrounousQuery {
 			+ "		, p.name pat_name"
 			+ "		, p.description pat_description"
 			+ "		, true pat_active"
-			+ "		, sysdate pat_creation_date"
-			+ "		, sysdate pat_updated_date"
-			+ "	FROM k_patrounous "
+			+ "		, now() pat_creation_date"
+			+ "		, now() pat_updated_date"
+			+ "	FROM k_patrounous p"
 			+ "	OFFSET floor(random() * ( "
 			+ "		SELECT count(*)"
 			+ "		FROM k_boggart))"
@@ -45,16 +45,21 @@ public class PatrounousQueryImpl extends JdbcQuery implements PatrounousQuery {
 	}
 
 	@Override
-	public Patrounous getByPersonId(String personId) {
+	public Patrounous get(String personId) {
 		String sql = SELECT_PATROUNOUS_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
 		paramMap.put("active", true);
-		return template().queryForObject(sql, paramMap, new PatrounousRowMapper());
+		List<Patrounous> list = template().query(sql, paramMap, new PatrounousRowMapper());
+		Patrounous patrounous = null;
+		if(!list.isEmpty()){
+			patrounous = list.get(0);
+		}
+		return patrounous;
 	}
 
 	@Override
-	public List<Patrounous> getFormerByPersonId(String personId) {
+	public List<Patrounous> getFormer(String personId) {
 		String sql = SELECT_PATROUNOUS_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);

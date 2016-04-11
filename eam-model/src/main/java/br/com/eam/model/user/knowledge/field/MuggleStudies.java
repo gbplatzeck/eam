@@ -11,10 +11,4 @@ public class MuggleStudies extends Field {
 		return FD_MS;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

@@ -11,10 +11,4 @@ public class Searching extends Skill{
 		return SK_SEARCHING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

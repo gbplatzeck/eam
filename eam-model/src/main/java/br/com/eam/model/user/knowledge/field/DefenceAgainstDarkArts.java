@@ -11,10 +11,4 @@ public class DefenceAgainstDarkArts extends Field {
 		return FD_DADA;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

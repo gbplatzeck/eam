@@ -11,10 +11,4 @@ public class Listening extends Skill {
 		return SK_LISTENING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

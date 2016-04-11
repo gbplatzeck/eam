@@ -11,10 +11,4 @@ public class CareOfMagicalCreatures extends Field {
 		return FD_CMC;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

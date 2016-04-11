@@ -11,10 +11,4 @@ public class Arithmancy extends Field {
 		return FD_ARITHMANCY;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

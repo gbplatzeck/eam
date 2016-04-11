@@ -11,10 +11,4 @@ public class Potions extends Field{
 		return FD_POTIONS;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

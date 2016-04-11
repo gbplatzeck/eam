@@ -20,13 +20,7 @@ public class WingardiumLeviosa extends Spell {
 
 	@Override
 	public String getName() {
-		return "Wingardium Leviosa";
-	}
-
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
+		return Spell.SP_WINGARDIUM_LEVIOSA;
 	}
 
 }

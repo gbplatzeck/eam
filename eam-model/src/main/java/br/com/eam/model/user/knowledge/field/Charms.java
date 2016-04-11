@@ -11,9 +11,4 @@ public class Charms extends Field {
 		return FD_CHARMS;
 	}
 
-	@Override
-	public String getDescription() {
-		return null;
-	}
-
 }

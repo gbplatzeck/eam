@@ -14,7 +14,7 @@ public class WandCommandImpl extends JdbcCommand implements WandCommand {
 			+ "	INSERT INTO r_person_wand "
 			+ "		(per_id, wan_id) "
 			+ "	VALUES"
-			+ "		(:personId, :wandId) ";
+			+ "		(:personId::uuid, :wandId::uuid) ";
 	
 	private final static String INACTIVATE_WAND = ""
 			+ "	UPDATE r_person_wand "
@@ -22,15 +22,15 @@ public class WandCommandImpl extends JdbcCommand implements WandCommand {
 			+ "		active = false,"
 			+ "		updated_date = now()"
 			+ "	WHERE"
-			+ "		per_id = :personId"
+			+ "		per_id = :personId::uuid"
 			+ "		AND active = true";
 	
 	@Override
-	public Boolean insert(String personId, Wand wand) {
+	public void insert(String personId, Wand wand) {
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
 		paramMap.put("wandId", wand.getId());
-		return template().update(RELATE_WAND, paramMap) == 1;
+		template().update(RELATE_WAND, paramMap);
 	}
 
 	@Override

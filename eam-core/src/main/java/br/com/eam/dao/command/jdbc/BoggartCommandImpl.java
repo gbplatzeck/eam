@@ -14,7 +14,7 @@ public class BoggartCommandImpl extends JdbcCommand implements BoggartCommand{
 			+ "	INSERT INTO r_person_boggart "
 			+ "		(per_id, bog_id) "
 			+ "	VALUES"
-			+ "		(:personId, :boggartId) ";
+			+ "		(:personId::uuid, :boggartId::uuid) ";
 	
 	private final static String INACTIVATE_BOGGART = ""
 			+ "	UPDATE r_person_boggart "
@@ -22,7 +22,7 @@ public class BoggartCommandImpl extends JdbcCommand implements BoggartCommand{
 			+ "		active = false,"
 			+ "		updated_date = now()"
 			+ "	WHERE"
-			+ "		per_id = :personId"
+			+ "		per_id = :personId::uuid"
 			+ "		AND active = true";
 	
 	@Override

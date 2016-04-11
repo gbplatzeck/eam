@@ -11,10 +11,4 @@ public class Climbing extends Skill {
 		return SK_CLIMBING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

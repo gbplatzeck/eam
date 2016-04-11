@@ -23,7 +23,7 @@ public class WandQueryImpl extends JdbcQuery implements WandQuery{
 			+ "	FROM k_wand w"
 			+ "	INNER JOIN r_person_wand r"
 			+ "		ON r.wan_id = w.wan_id"
-			+ "	WHERE r.per_id = :personId "
+			+ "	WHERE r.per_id = :personId::uuid "
 			+ "		AND r.active = :active "
 			+ "	ORDER BY r.creation_date DESC";
 	
@@ -32,10 +32,10 @@ public class WandQueryImpl extends JdbcQuery implements WandQuery{
 			+ "		, w.wood wan_wood"
 			+ "		, w.kernel wan_kernel"
 			+ "		, w.size wan_size"
-			+ "		, sysdate wan_creation_date"
-			+ "		, sysdate wan_updated_date"
+			+ "		, now() wan_creation_date"
+			+ "		, now() wan_updated_date"
 			+ "		, true wan_active "
-			+ "	FROM k_wand "
+			+ "	FROM k_wand w "
 			+ "	OFFSET floor(random() * ("
 			+ "		SELECT count(*) "
 			+ "		FROM k_wand)) "
@@ -48,16 +48,21 @@ public class WandQueryImpl extends JdbcQuery implements WandQuery{
 	}
 
 	@Override
-	public Wand getByPersonId(String personId) {
+	public Wand get(String personId) {
 		String sql = SELECT_WAND_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);
 		paramMap.put("active", true);
-		return template().queryForObject(sql, paramMap, new WandRowMapper());
+		Wand wand = null;
+		List<Wand> list = template().query(sql, paramMap, new WandRowMapper());
+		if(!list.isEmpty()){
+			wand = list.get(0);
+		}
+		return wand;
 	}
 
 	@Override
-	public List<Wand> getFormerByPersonId(String personId) {
+	public List<Wand> getFormer(String personId) {
 		String sql = SELECT_WAND_BY_PERSON_ID;
 		Map<String, Object> paramMap = params();
 		paramMap.put("personId", personId);

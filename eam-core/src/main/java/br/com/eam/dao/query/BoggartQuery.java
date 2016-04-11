@@ -7,6 +7,6 @@ import br.com.eam.model.user.misc.Boggart;
 public interface BoggartQuery {
 
 	Boggart pick();
-	Boggart getByPersonId(String personId);
-	List<Boggart> getFormerByPersonId(String personId);
+	Boggart get(String personId);
+	List<Boggart> getFormer(String personId);
 }

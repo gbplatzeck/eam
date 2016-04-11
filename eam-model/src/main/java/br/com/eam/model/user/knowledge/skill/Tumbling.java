@@ -11,10 +11,4 @@ public class Tumbling extends Skill{
 		return SK_TUMBLING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

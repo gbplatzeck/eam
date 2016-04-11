@@ -6,6 +6,6 @@ import br.com.eam.model.user.misc.Wand;
 
 public interface WandQuery {
 	Wand pick();
-	Wand getByPersonId(String personId);
-	List<Wand> getFormerByPersonId(String personId);
+	Wand get(String personId);
+	List<Wand> getFormer(String personId);
 }

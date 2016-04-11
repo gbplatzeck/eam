@@ -11,10 +11,4 @@ public class Transfiguration extends Field {
 		return FD_TRANSFIGURATION;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

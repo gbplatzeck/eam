@@ -8,9 +8,9 @@ public abstract class Knowledge extends Base{
 	
 	private Integer points = 0;
 	private Integer usage = 0;
+	private String description;
 	
 	public abstract String getName();
-	public abstract String getDescription();
 	public abstract Integer getMaximumPoints();
 	
 	public Integer getPoints() {
@@ -24,6 +24,12 @@ public abstract class Knowledge extends Base{
 	}
 	public void setUsage(Integer usage) {
 		this.usage = usage;
+	}
+	public String getDescription(){
+		return description;
+	}
+	public void setDescription(String description){
+		this.description = description;
 	}
 
 }

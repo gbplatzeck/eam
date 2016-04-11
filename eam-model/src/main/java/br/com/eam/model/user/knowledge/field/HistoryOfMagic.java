@@ -11,10 +11,4 @@ public class HistoryOfMagic extends Field {
 		return FD_HM;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

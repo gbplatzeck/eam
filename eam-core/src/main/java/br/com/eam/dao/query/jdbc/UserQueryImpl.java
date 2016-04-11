@@ -54,6 +54,17 @@ public class UserQueryImpl extends JdbcQuery implements UserQuery {
 			+ " WHERE u.active = true "
 			+ "		AND u.password = :password "
 			+ "		AND u.login = :login ";
+	
+	private final static String SELECT_USER_BY_LOGIN =
+			SELECT_USER
+			+ "	WHERE u.active = true"
+			+ "		AND u.login = :login";
+	
+	private final static String CHECK_USERNAME = ""
+			+ "	SELECT 1 "
+			+ "	FROM d_user u "
+			+ "	WHERE u.active = true"
+			+ "		AND u.login = :login";
 			
 	@Override
 	public User get(String userId) {
@@ -69,6 +80,27 @@ public class UserQueryImpl extends JdbcQuery implements UserQuery {
 		Map<String, Object> paramMap = params();
 		paramMap.put("login", login);
 		paramMap.put("password", password);
+		SqlRowSet rs = template().queryForRowSet(sql, paramMap);
+		User user = null;
+		if(rs.next()){
+			user = new UserRowMapper().mapRow(rs, 0);
+		}
+		return user;
+	}
+	
+	@Override
+	public Boolean loginAlreadyExists(String login){
+		Map<String, Object> paramMap = params();
+		paramMap.put("login", login);
+		SqlRowSet rs = template().queryForRowSet(CHECK_USERNAME, paramMap);
+		return rs.next();
+	}
+	
+	@Override
+	public User getByLogin(String login){
+		String sql = SELECT_USER_BY_LOGIN;
+		Map<String, Object> paramMap = params();
+		paramMap.put("login", login);
 		SqlRowSet rs = template().queryForRowSet(sql, paramMap);
 		User user = null;
 		if(rs.next()){

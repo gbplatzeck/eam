@@ -17,7 +17,7 @@ public class PatrounousRowMapper implements RowMapper<Patrounous> {
 		String description = rs.getString("pat_description");
 		Date creationDate = rs.getTimestamp("pat_creation_date");
 		Date updatedDate = rs.getTimestamp("pat_updated_date");
-		Boolean active = rs.getBoolean("active");
+		Boolean active = rs.getBoolean("pat_active");
 		
 		Patrounous patrounous = new Patrounous();
 		patrounous.setId(id);

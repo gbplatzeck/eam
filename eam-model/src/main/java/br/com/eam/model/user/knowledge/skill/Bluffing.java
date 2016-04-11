@@ -11,10 +11,4 @@ public class Bluffing extends Skill {
 		return SK_BLUFFING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

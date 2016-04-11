@@ -11,10 +11,4 @@ public class Hiding extends Skill {
 		return SK_HIDING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

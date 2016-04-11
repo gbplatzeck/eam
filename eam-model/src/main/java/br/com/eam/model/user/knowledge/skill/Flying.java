@@ -11,10 +11,4 @@ public class Flying extends Skill{
 		return SK_FLYING;
 	}
 
-	@Override
-	public String getDescription() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
