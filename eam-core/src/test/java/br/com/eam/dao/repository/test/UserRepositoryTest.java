@@ -20,7 +20,7 @@ import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
 import br.com.eam.model.user.Role;
 import br.com.eam.model.user.User;
-import br.com.eam.service.CharacterProfileService;
+import br.com.eam.service.CreateCharacterService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = EAMApplication.class)
@@ -35,7 +35,7 @@ public class UserRepositoryTest {
 	UserCommand userCommand;
 
 	@Autowired
-	CharacterProfileService characterProfileService;
+	CreateCharacterService characterProfileService;
 
 	@Autowired
 	PersonCommand personCommand;

@@ -19,7 +19,7 @@ import br.com.eam.dao.command.PersonCommand;
 import br.com.eam.dao.query.PersonQuery;
 import br.com.eam.main.EAMApplication;
 import br.com.eam.model.user.Person;
-import br.com.eam.service.CharacterProfileService;
+import br.com.eam.service.CreateCharacterService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes=EAMApplication.class)
@@ -34,7 +34,7 @@ public class PersonRepositoryTest {
 	PersonQuery personQuery;
 	
 	@Autowired
-	CharacterProfileService characterProfileService;
+	CreateCharacterService characterProfileService;
 	
 	Person person;
 	Person update;
